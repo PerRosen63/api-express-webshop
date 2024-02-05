@@ -8,6 +8,8 @@ const mongoClient = require('mongodb').MongoClient;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var productsRouter = require('./routes/products');
+var ordersRouter = require('./routes/orders');
 
 var app = express();
 app.use(cors());
@@ -25,8 +27,7 @@ mongoClient.connect('mongodb://127.0.0.1:27017')
     app.locals.db = db;
 })
 
-app.get('/donuts', (req, res) => {
-    //res.json({"what": "donuts"})
+/* app.get('/donuts', (req, res) => {
     req.app.locals.db.collection("donuts").find().toArray()
     .then(result => {
         console.log("saved donut", res);
@@ -44,9 +45,11 @@ app.get('/add', (req, res) => {
         res.json(result)
     })
     .catch(err => console.log('err', err))
-})
+}) */
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/orders', ordersRouter);
 
 module.exports = app;
