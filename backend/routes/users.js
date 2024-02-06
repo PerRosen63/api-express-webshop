@@ -21,15 +21,18 @@ router.get('/', function(req, res, next) {
 /*Specifik user*/
 router.post('/', (req, res) => {
   let id = req.body.id;
-  console.log(id);
+  //console.log(id);
   req.app.locals.db.collection('users').find().toArray()
   .then(results => {
     
-    let printUsers = "";
     for (user in results) {
-      printUsers += results[user].name;
+      let objId = results[user]._id.toString();
+      if (objId === id) {
+        console.log(results[user]);
+        res.json(results[user])
+      }
     }
-  res.json(printUsers);
+    //res.json(results);
   
     //console.log(results);
   })
