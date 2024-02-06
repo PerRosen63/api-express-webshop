@@ -19,7 +19,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoClient.connect('mongodb://127.0.0.1:27017')
+mongoClient.connect('mongodb://127.0.0.1:27017', {
+    useUnifiedTopology: true
+})
 .then(client => {
     console.log("Databasen är uppkopplad");
 
