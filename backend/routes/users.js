@@ -11,6 +11,8 @@ router.get('/', function(req, res, next) {
 
     for (user in results) {
       delete results[user].password;
+      results[user].id = results[user]._id;
+      delete results[user]._id;
     }
 
     res.json(results);
@@ -32,9 +34,6 @@ router.post('/', (req, res) => {
         res.json(results[user])
       }
     }
-    //res.json(results);
-  
-    //console.log(results);
   })
 
 })
@@ -44,9 +43,28 @@ router.post('/add', (req, res) => {
 
   req.app.locals.db.collection('users').insertOne(req.body)
   .then(results => {
-    console.log(results);
-    res.redirect('/show');
+    //let objId = results.insertedId;
+    //console.log();
+    res.json({id: results.insertedId}); 
   }) 
+})
+
+/*Logga in user*/
+router.post('/login', (req, res) => {
+  let email = req.body.email;
+  console.log(email);
+  req.app.locals.db.collection('users').find().toArray()
+  .then(results => {
+    
+    for (user in results) {
+      let objId = results[user]._id.toString();
+      if (objId === id) {
+        console.log(results[user]);
+        res.json(results[user])
+      }
+    }
+  })
+
 })
 
 module.exports = router;
