@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
         console.log(results[user]);
         res.json(results[user])
       }
-    }
+    } 
   })
 
 })
@@ -51,20 +51,27 @@ router.post('/add', (req, res) => {
 
 /*Logga in user*/
 router.post('/login', (req, res) => {
-  let email = req.body.email;
-  console.log(email);
+
   req.app.locals.db.collection('users').find().toArray()
   .then(results => {
+  let email = req.body.email;
+  let password = req.body.password;  
     
-    for (user in results) {
-      let objId = results[user]._id.toString();
-      if (objId === id) {
-        console.log(results[user]);
-        res.json(results[user])
-      }
+    for (user in results) {      
+      let mejl = results[user].email;
+      //console.log(mejl);
+      let pw = results[user].password;
+      //console.log(pw);
+      
+      if ( email === mejl && pw === password ) { 
+        console.log('Rätt!'); 
+        res.json(results[user]);        
+        return; 
+      }      
     }
-  })
+    res.json('Fel email eller password!');
 
+  })
 })
 
 module.exports = router;
