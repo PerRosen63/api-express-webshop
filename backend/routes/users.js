@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
   })
 });
 
-/*Specifik user*/
+/*POST Get specific user*/
 router.post('/', (req, res) => {
   let id = req.body.id;
   //console.log(id);
@@ -37,7 +37,7 @@ router.post('/', (req, res) => {
   })
 })
 
-/* Post users */
+/* POST users */
 router.post('/add', (req, res) => {
 
   req.app.locals.db.collection('users').insertOne(req.body)

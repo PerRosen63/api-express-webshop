@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
   })
 }); 
 
-/*Specific product*/
+/*GET specific product*/
 router.get('/:id', (req, res) => {
 
   let id = req.params.id;
@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
   })
 })
 
-/* Post products */
+/*POST products*/
 router.post('/add', (req, res) => {
 
   req.app.locals.db.collection('products').insertOne(req.body)
