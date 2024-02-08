@@ -23,9 +23,9 @@ POST http://localhost:3000/api/users/add
 Content-Type: application/json
 
 {
-  "name": "Bob Bobsson",
-  "email": "bob@mail.com",
-  "password": "test-17"
+  "name": "Rod Rodsson",
+  "email": "rod@mail.com",
+  "password": "test-19"
 }
 
 ###
@@ -53,7 +53,7 @@ GET http://localhost:3000/api/products
 ###
 
 // HÄMTA SPECIFIK PRODUKT
-GET http://localhost:3000/api/products/ // ID PÅ PRODUKT
+GET http://localhost:3000/api/products/65c41afad401fa586f257329
 
 ###
 
@@ -62,10 +62,10 @@ POST http://localhost:3000/api/products/add
 Content-Type: application/json
 
 {
-  "name": "Produkt 1",
-  "description": "Beskrivning av produkt 1",
-  "price": 100, 
-  "lager": 10
+  "name": "CD The Dogmen",
+  "description": "Larmig",
+  "price": 200, 
+  "lager": 500
 }
 
 ###

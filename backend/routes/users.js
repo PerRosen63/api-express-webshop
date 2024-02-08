@@ -35,7 +35,6 @@ router.post('/', (req, res) => {
       }
     } 
   })
-
 })
 
 /* Post users */
@@ -43,9 +42,7 @@ router.post('/add', (req, res) => {
 
   req.app.locals.db.collection('users').insertOne(req.body)
   .then(results => {
-    //let objId = results.insertedId;
-    //console.log();
-    res.json({id: results.insertedId}); 
+    res.json({id: results.insertedId, name: req.body.name, email: req.body.email, name: req.body.name, password: req.body.password }); 
   }) 
 })
 
@@ -59,12 +56,9 @@ router.post('/login', (req, res) => {
     
     for (user in results) {      
       let mejl = results[user].email;
-      //console.log(mejl);
       let pw = results[user].password;
-      //console.log(pw);
       
       if ( email === mejl && pw === password ) { 
-        console.log('Rätt!'); 
         res.json(results[user]);        
         return; 
       }      
