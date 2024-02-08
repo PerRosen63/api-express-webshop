@@ -10,34 +10,32 @@ router.get('/', function(req, res, next) {
   .then(results => {
 
     for (product in results) {
-      results[product].id = results[product]._id;
+      results[product].Artikelnr = results[product]._id;
       delete results[product]._id;
+      results[product].Artikel = results[product].name;
+      delete results[product].name;
+      results[product].Beskrivning = results[product].description;
+      delete results[product].description;
+      results[product].Pris = results[product].price;
+      delete results[product].price;
+      results[product].Lager = results[product].lager;
+      delete results[product].lager;
     }
-
     res.json(results);
-    console.log(results);
   })
 }); 
 
 /*Specific product*/
 router.get('/:id', (req, res) => {
+
   let id = req.params.id;
   let oid = new ObjectId(req.params.id);
-  console.log(id); 
-  req.app.locals.db.collection('products').find({"_id": oid}).toArray()
-  .then(results => {
-    console.log(results[0].name);
-    //res.json(results);
 
-    res.json({Artikelnr: id, Artikel: results[0].name, Artikel: results[0].name, Beskrivning: results[0].description, Pris: results[0].price, Lager: results[0].lager}); 
-    
-    /* for (product in results) {
-      let objId = results[product]._id.toString();
-      if (objId === id) {
-        console.log(results[product]);
-        res.json(results[product])
-      }
-    }  */
+  req.app.locals.db.collection('products').find({"_id": oid}).toArray()
+
+  .then(results => {
+
+    res.json({Artikelnr: id, Artikel: results[0].name, Beskrivning: results[0].description, Pris: results[0].price, Lager: results[0].lager});    
   })
 })
 
