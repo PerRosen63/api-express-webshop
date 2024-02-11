@@ -9,7 +9,7 @@ router.post('/add', function(req, res, next) {
   req.app.locals.db.collection('orders').insertOne(req.body)
 
   .then(results => {
-  res.send(req.body);
+  res.json({message: "Order skapad", order: req.body});
   });
 
   //Products
@@ -52,7 +52,13 @@ router.post('/add', function(req, res, next) {
 });
 
 /* GET orders listing. */
-router.get('/', function(req, res, next) {
-  res.send('Orders router');
+router.get('/all', function(req, res, next) {
+  req.app.locals.db.collection('orders').find().toArray()
+  
+  .then(results => {
+  res.send(results);
+  })
 });
+
+
 module.exports = router;
