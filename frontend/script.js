@@ -1,11 +1,28 @@
-let productList = document.getElementById('productList');
 let userForm = document.getElementById('userForm');
+let productList = document.getElementById('productList');
+let userList = document.getElementById('userList');
 
 if (localStorage.getItem('user')) {
     printLogoutBtn();
 } else {
     printLoginForm();
 }
+
+function printUsers() {
+    fetch('http://localhost:3000/api/users')
+    .then(res => res.json())
+    .then(data => {
+        //console.log('users', data);
+
+        data.map(user => {
+            let li = document.createElement('li');
+            li.innerText = user.id;
+
+            userList.appendChild(li);
+        })
+    })
+}
+//printUsers();
 
 function printProducts() {
     fetch('http://localhost:3000/api/products')
@@ -21,7 +38,7 @@ function printProducts() {
         })
     })
 }
-printProducts();
+//printProducts();
 
 function printLoginForm() {
     userForm.innerHTML = '';
@@ -36,7 +53,7 @@ function printLoginForm() {
     loginBtn.innerText = 'Logga in';
 
     loginBtn.addEventListener('click', () => {
-        let sendUser = {mejl: inputEmail.value, pw: inputPassword.value};
+        let sendUser = {email: inputEmail.value, password: inputPassword.value};
 
         fetch('http://localhost:3000/api/users/login', {
             method: 'POST',
@@ -47,7 +64,7 @@ function printLoginForm() {
         })
         .then(res => res.json())
         .then(data => {
-            console.log('post user', data);
+            console.log("post user", data);
         })
 
     })

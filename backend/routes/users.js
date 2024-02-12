@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
     }
 
     res.json(results);
-    console.log(results);
+    //console.log(results);
   })
 });
 
@@ -48,24 +48,25 @@ router.post('/add', (req, res) => {
 
 /*Logga in user*/
 router.post('/login', (req, res) => {
-
   req.app.locals.db.collection('users').find().toArray()
   .then(results => {
-  let email = req.body.email;
-  let password = req.body.password;  
+    let email = req.body.email;
+    let password = req.body.password;  
     
     for (user in results) {      
       let mejl = results[user].email;
       let pw = results[user].password;
       
       if ( email === mejl && pw === password ) { 
-        res.json(results[user]);        
+        res.json(results[user]._id);      
+        console.log('rätt');    
         return; 
       }      
     }
-    res.json('Fel email eller password!');
+    console.log('fel');
+    res.status(401).json({message: 'Fel email eller password!'});
 
   })
 })
 
-module.exports = router;
+module.exports = router; 
