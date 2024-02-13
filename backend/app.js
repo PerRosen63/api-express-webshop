@@ -29,26 +29,6 @@ mongoClient.connect('mongodb://127.0.0.1:27017', {
     app.locals.db = db;
 })
 
-/* app.get('/donuts', (req, res) => {
-    req.app.locals.db.collection("donuts").find().toArray()
-    .then(result => {
-        console.log("saved donut", res);
-        res.json(result)
-    })
-});
-
-//Fusk istället för postman:
-app.get('/add', (req, res) => {
-    let newDonut = {"name": "Choklad"}
-
-    req.app.locals.db.collection("donuts").insertOne(newDonut)
-    .then(result => {
-        console.log("saved donut", res);
-        res.json(result)
-    })
-    .catch(err => console.log('err', err))
-}) */
-
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/products', productsRouter);
